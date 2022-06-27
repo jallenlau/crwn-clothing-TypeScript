@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux';
 
-import { CATEGORIES_STATE, Category } from './category.types'
+import { Category } from './category.types'
 import {
     fetchCategoriesStart,
     fetchCategoriesSuccess,
