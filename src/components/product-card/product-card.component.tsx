@@ -1,8 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { FC } from 'react';
 
 import { addItemToCart } from '../../store/cart/cart.action';
 import { selectCartItems } from '../../store/cart/cart.selector';
-
+import { CategoryItem } from '../../utiles/firebase/firebase.utiles';
 import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component'
 
 import {
@@ -10,9 +11,13 @@ import {
     Footer,
     Name,
     Price,
-} from './product-card.styles.jsx'
+} from './product-card.styles'
 
-const ProductCard = ({ product }) => {
+type ProductProps = {
+    product: CategoryItem;
+}
+
+const ProductCard:FC<ProductProps> = ({ product }) => {
     const dispatch = useDispatch();
     const { name, price, imageUrl } = product;
     const cartItems = useSelector(selectCartItems);
