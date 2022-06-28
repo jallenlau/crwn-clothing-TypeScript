@@ -1,5 +1,6 @@
 import FormInput from '../form-input/form-input.component';
-import { useState } from 'react';
+import { useState, FormEvent, ChangeEvent } from 'react';
+import { AuthErrorCodes, AuthError } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
 import Button, {BUTTON_TYPE_CLASSES} from '../button/button.component';
 import {
@@ -10,7 +11,7 @@ import {
 import {
     ButtonsContainer,
     SignInContainer,
-} from './sign-in-form.styles.jsx'
+} from './sign-in-form.styles'
 
 const defaultSignInFormFields = {
     email: '',
@@ -31,23 +32,23 @@ const SignInForm = () => {
         setSignInFormFields(defaultSignInFormFields);
     }
 
-    const handleChange = (event) => {
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         setSignInFormFields({...signInFormFields, [name]: value})     
     }
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         try {
             dispatch(emailSignInStart(email, password));
             resetFormFields();
         } catch (error) {
-            switch (error.code) {
-                case 'auth/wrong-password':
+            switch ((error as AuthError).code) {
+                case AuthErrorCodes.INVALID_PASSWORD:
                     alert('Wrong Password!');
                     break;
-                case 'auth/user-not-found':
+                case AuthErrorCodes.USER_MISMATCH:
                     alert('No user associated with this!')
                     break;
                 default:

@@ -1,9 +1,10 @@
+import { ButtonHTMLAttributes, FC } from 'react';
 import {
     BaseButton,
     GoogleSignInButton,
     InvertedButtom,
     ButtonSpinner,
-} from './button.styles.jsx'
+} from './button.styles'
 
 export const BUTTON_TYPE_CLASSES = {
     base:'base',
@@ -18,7 +19,12 @@ const getButton = (buttonType = BUTTON_TYPE_CLASSES.base) =>
     [BUTTON_TYPE_CLASSES.inverted]: InvertedButtom,
 }[buttonType]);
 
-const Button = ({ children, buttonType, isLoading, ...otherProps }) => {
+export type ButtonProps = {
+    buttonType?: string;
+    isLoading?: boolean;
+} & ButtonHTMLAttributes<HTMLButtonElement>
+
+const Button: FC<ButtonProps> = ({ children, buttonType, isLoading, ...otherProps }) => {
     const CustomButton = getButton(buttonType);
     return (
         <CustomButton disabled={isLoading} {...otherProps}>
