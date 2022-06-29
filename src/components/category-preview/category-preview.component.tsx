@@ -1,12 +1,19 @@
-import ProductCard from '../product-card/product-card.component.tsx'
+import ProductCard from '../product-card/product-card.component'
+import { CategoryItem } from '../../utiles/firebase/firebase.utiles';
+import { FC } from 'react';
 
 import {
     CategoryPreviewContainer,
     Title,
     Preview
-} from './category-preview.styles.jsx'
+} from './category-preview.styles'
 
-const CategoryPreview = ({ title, category }) => {
+type CategoryPreviewProps = {
+    title: string;
+    category: CategoryItem[];
+}
+
+const CategoryPreview: FC<CategoryPreviewProps> = ({ title, category }) => {
     return (
         <CategoryPreviewContainer>
             <h2>
