@@ -10,6 +10,7 @@ import { Provider } from 'react-redux';
 import { store } from './store/store'
 import { Elements } from '@stripe/react-stripe-js';
 import { stripePromise } from './utiles/stripe/stripe.utils'
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 import './index.scss';
 
@@ -28,6 +29,8 @@ root.render(
     </Provider>
   </React.StrictMode>
 );
+
+serviceWorkerRegistration.register();
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
